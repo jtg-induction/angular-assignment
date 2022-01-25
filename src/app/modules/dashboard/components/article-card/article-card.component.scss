@@ -1,0 +1,31 @@
+@import '/src/app/theme.scss';
+
+.article {
+  max-width: 31rem;
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1.5rem;
+  }
+  &__footer {
+    background-color: $primary-color;
+    padding: 0 1.5rem;
+    text-align: right;
+  }
+}
+.mat-card-title {
+  margin: 0;
+}
+.mat-card-image {
+  height: 7rem;
+  object-fit: cover;
+  object-position: center;
+}
+.like {
+  cursor: pointer;
+  color: $white;
+  &.liked {
+    color: $green;
+  }
+}

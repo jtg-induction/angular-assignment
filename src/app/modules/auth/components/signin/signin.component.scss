@@ -1,0 +1,30 @@
+@import '/src/app/theme.scss';
+
+:host {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+.mat-form-field {
+  width: 100%;
+  min-width: 30rem;
+}
+mat-card-title,
+mat-card-content {
+  display: flex;
+  justify-content: center;
+}
+.error {
+  padding: 1rem;
+  width: 30rem;
+  color: $white;
+  background-color: $red;
+}
+.btn-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.text-green {
+  color: $green;
+}

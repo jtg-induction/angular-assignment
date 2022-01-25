@@ -1,0 +1,11 @@
+@import '/src/app/theme.scss';
+
+.aligner {
+  max-width: 84%;
+  margin: 2rem auto;
+}
+.articles {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
