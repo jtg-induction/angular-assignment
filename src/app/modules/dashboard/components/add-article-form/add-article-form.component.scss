@@ -1,0 +1,38 @@
+@import '/src/app/theme.scss';
+.article-form {
+  max-width: 70%;
+  margin: 2rem auto;
+}
+.mat-form-field {
+  width: 100%;
+}
+.choose-image-wrapper {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+}
+.choose-image {
+  margin-left: 1rem;
+  border: 1px solid $primary-color;
+  padding: 0.7rem;
+  font-size: 1.5rem;
+  border-radius: 6px;
+  color: $primary-color;
+  cursor: pointer;
+}
+.error {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  color: $white;
+  background-color: $red;
+}
+.submit-btn {
+  min-width: 12rem;
+  // text-align: right;
+}
+.m-0 {
+  margin: 0;
+}
+.mr-10 {
+  margin-right: 1rem;
+}

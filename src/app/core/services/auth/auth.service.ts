@@ -11,7 +11,6 @@ import { UserDetails } from '../../interfaces/user-details';
 })
 export class AuthService {
   constructor(private getAuth: Auth) {}
-
   createUser(email: string, password: string) {
     return createUserWithEmailAndPassword(this.getAuth, email, password);
   }

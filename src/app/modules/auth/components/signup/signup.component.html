@@ -21,7 +21,6 @@
           <mat-error *ngIf="email.touched && email.invalid">
             <div *ngIf="email.errors['required']">Email is required</div>
             <div *ngIf="email.errors['email']">Not a valid email</div>
-            <div *ngIf="email.errors['shouldBeUnique']">Email is already taken</div>
           </mat-error>
         </mat-form-field>
       </p>

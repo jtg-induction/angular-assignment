@@ -3,4 +3,6 @@ export enum ProjectRoutes {
   SIGNUP = 'signup',
   SIGNIN = 'signin',
   DASHBOARD = 'dashboard',
+  ADD_ARTICLE = 'add',
+  ARTICLE_DETAIL = 'article',
 }

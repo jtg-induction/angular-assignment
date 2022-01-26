@@ -9,7 +9,6 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { FooterComponent } from './core/components/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthComponent } from './modules/auth/auth.component';
@@ -19,14 +18,20 @@ import { SharedModule } from './modules/shared/shared.module';
 import { FirebaseModule } from './modules/firebase/firebase.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
-// import { AngularFireModule } from '@angular/fire/compat';
-// import { AngularFirestoreModule } from '@angular/fire/firestore';
-// import { AngularFireStorageModule } from '@angular/fire/storage';
-// import { AngularFireAuthModule } from '@angular/fire/auth';
+import { HeaderComponent } from './modules/header/header.component';
+import { HeaderModule } from './modules/header/header.module';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, FooterComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule, SharedModule, AuthModule, DashboardModule],
+  declarations: [AppComponent, FooterComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    SharedModule,
+    AuthModule,
+    DashboardModule,
+    HeaderModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

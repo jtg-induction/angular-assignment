@@ -1,14 +1,28 @@
 @import '/src/app/theme.scss';
 
 .article {
-  max-width: 31rem;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  // max-width: 31rem;
   &__head {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding-bottom: 1.5rem;
+    line-height: 3rem;
+    a {
+      text-decoration: none;
+      color: $white;
+    }
+    .date {
+      font-size: 1.2rem;
+    }
   }
   &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: $primary-color;
     padding: 0 1.5rem;
     text-align: right;
@@ -18,7 +32,7 @@
   margin: 0;
 }
 .mat-card-image {
-  height: 7rem;
+  max-height: 10rem;
   object-fit: cover;
   object-position: center;
 }
@@ -28,4 +42,13 @@
   &.liked {
     color: $green;
   }
+}
+.m-0 {
+  margin: 0;
+}
+.content {
+  flex: 1;
+}
+.author {
+  font-weight: 500;
 }

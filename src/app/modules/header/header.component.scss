@@ -1,0 +1,18 @@
+@import '/src/app/theme.scss';
+.header {
+  padding: 1.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $primary-color;
+  color: $white;
+  &__title {
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 0;
+  }
+}
+.btn-wrapper {
+  display: flex;
+  gap: 1rem;
+}

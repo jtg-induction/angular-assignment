@@ -5,8 +5,10 @@ import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { ProjectRoutes } from './constants';
 import { PagenotfoundComponent } from './core/components/pagenotfound/pagenotfound.component';
+import { AddArticleFormComponent } from './modules/dashboard/components/add-article-form/add-article-form.component';
+import { ArticleDetailComponent } from './modules/dashboard/components/article-detail/article-detail.component';
 
-const redirectUnauthorizedToAuth = () => redirectUnauthorizedTo([ProjectRoutes.ROOT]);
+const redirectUnauthorizedToAuth = () => redirectUnauthorizedTo([ProjectRoutes.SIGNIN]);
 const redirectLoggedInToDashboard = () => redirectLoggedInTo([ProjectRoutes.DASHBOARD]);
 
 const routes: Routes = [
@@ -19,6 +21,18 @@ const routes: Routes = [
   {
     path: ProjectRoutes.DASHBOARD,
     component: DashboardComponent,
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToAuth },
+  },
+  {
+    path: ProjectRoutes.ADD_ARTICLE,
+    component: AddArticleFormComponent,
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToAuth },
+  },
+  {
+    path: `${ProjectRoutes.ARTICLE_DETAIL}/:id`,
+    component: ArticleDetailComponent,
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToAuth },
   },

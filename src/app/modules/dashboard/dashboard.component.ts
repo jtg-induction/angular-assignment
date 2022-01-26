@@ -10,21 +10,11 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(private authService: AuthService, private route: Router) {}
+  constructor(private authService: AuthService) {}
 
   // name = getDoc(doc(this.db, 'users'), {
   //   name: `${userData.fname} ${userData.lname}`,
   // });
-
-  logout() {
-    this.authService
-      .logOut()
-      .then((r) => {
-        console.log(r);
-        this.route.navigate(['/']);
-      })
-      .catch((e) => console.log('errors' + e));
-  }
 
   ngOnInit(): void {
     const logout = true;

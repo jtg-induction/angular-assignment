@@ -1,0 +1,14 @@
+@import '/src/app/theme.scss';
+
+.articles {
+  display: flex;
+  // gap: 2rem;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+.article {
+  width: 31.33%;
+  padding: 0 10px;
+  margin-bottom: 2rem;
+  // height: 100%;
+}

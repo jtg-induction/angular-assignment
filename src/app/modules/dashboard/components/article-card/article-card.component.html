@@ -1,6 +1,11 @@
 <mat-card class="article">
   <div class="article__head">
-    <mat-card-title>Health</mat-card-title>
+    <mat-card-title>
+      <a [routerLink]="routeToArticleDetail">
+        {{ article.title | truncate: 40:'...' }}
+      </a>
+      <p class="date m-0">{{ article.createdAt | date }}</p>
+    </mat-card-title>
     <div>
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="options">
         <mat-icon>more_vert</mat-icon>
@@ -17,18 +22,17 @@
       </mat-menu>
     </div>
   </div>
-  <img
-    mat-card-image
-    src="https://www.lovingly.com/wp-content/uploads/2019/09/red-rose-on-black-background-649x1024.jpg"
-    alt="article image"
-  />
-  <mat-card-content>
-    <p>
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque veniam nihil nam dolores optio, corporis odit
-      dolorum possimus laudantium asperiores quia modi et assumenda ut, libero itaque dolorem ipsum? Eum.
-    </p>
+  <a [routerLink]="routeToArticleDetail">
+    <img *ngIf="article.imageURL" mat-card-image src="{{ article.imageURL }}" alt="article image" />
+    <img *ngIf="!article.imageURL" mat-card-image src="https://i.stack.imgur.com/mwFzF.png" alt="article image" />
+  </a>
+  <mat-card-content class="content">
+    <p>{{ article.description | truncate: 100:'...' }}</p>
   </mat-card-content>
   <mat-card-footer class="article__footer">
+    <p class="m-0">
+      By <span class="author">{{ article.author }}</span>
+    </p>
     <mat-icon class="like" (click)="({})" title="like">thumb_up</mat-icon>
   </mat-card-footer>
 </mat-card>

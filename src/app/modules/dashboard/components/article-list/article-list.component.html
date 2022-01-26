@@ -1,0 +1,12 @@
+<h2>Feed</h2>
+<div class="articles">
+  <div class="article" *ngFor="let article of feedArticles">
+    <app-article-card [article]="article"></app-article-card>
+  </div>
+</div>
+<h2>My articles</h2>
+<div class="articles">
+  <div class="article" *ngFor="let article of userArticles">
+    <app-article-card [article]="article"></app-article-card>
+  </div>
+</div>
