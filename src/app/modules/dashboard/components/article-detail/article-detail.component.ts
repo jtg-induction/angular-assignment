@@ -12,11 +12,10 @@ export class ArticleDetailComponent implements OnInit {
   articleId: string;
   article: ArticleDetails;
 
-  constructor(private route: ActivatedRoute, private articleService: ArticleService) {}
+  constructor(private activatedoute: ActivatedRoute, private articleService: ArticleService) {}
 
   async ngOnInit() {
-    this.articleId = this.route.snapshot.paramMap.get('id');
+    this.articleId = this.activatedoute.snapshot.paramMap.get('id');
     this.article = await this.articleService.getArticle(this.articleId);
-    console.log(this.article);
   }
 }

@@ -1,6 +1,6 @@
 <mat-card class="article">
   <div class="article__head">
-    <mat-card-title>
+    <mat-card-title class="m-0">
       <a [routerLink]="routeToArticleDetail">
         {{ article.title | truncate: 40:'...' }}
       </a>
@@ -11,11 +11,11 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>
+        <button [disabled]="article.creator !== userEmail" [routerLink]="routeToEditArticle" mat-menu-item>
           <mat-icon>edit</mat-icon>
           <span>Edit</span>
         </button>
-        <button mat-menu-item>
+        <button [disabled]="article.creator !== userEmail" (click)="deleteDialog()" mat-menu-item>
           <mat-icon>delete</mat-icon>
           <span>Delete</span>
         </button>

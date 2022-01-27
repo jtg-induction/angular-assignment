@@ -1,16 +1,15 @@
 @import '/src/app/theme.scss';
+@import '/src/app/styles/main.scss';
 
 .article {
   height: 90%;
-  display: flex;
+  @include flexbox();
   flex-direction: column;
-  // max-width: 31rem;
   &__head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    @include flexbox(space-between, flex-start);
     padding-bottom: 1.5rem;
     line-height: 3rem;
+    height: 9rem;
     a {
       text-decoration: none;
       color: $white;
@@ -20,21 +19,15 @@
     }
   }
   &__footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flexbox(space-between, center);
     background-color: $primary-color;
     padding: 0 1.5rem;
     text-align: right;
   }
 }
-.mat-card-title {
-  margin: 0;
-}
 .mat-card-image {
   max-height: 10rem;
   object-fit: cover;
-  object-position: center;
 }
 .like {
   cursor: pointer;
@@ -42,9 +35,6 @@
   &.liked {
     color: $green;
   }
-}
-.m-0 {
-  margin: 0;
 }
 .content {
   flex: 1;

@@ -1,8 +1,8 @@
 @import '/src/app/theme.scss';
+@import '/src/app/styles/main.scss';
 
 .articles {
-  display: flex;
-  // gap: 2rem;
+  @include flexbox();
   flex-wrap: wrap;
   margin: 0 -10px;
 }
@@ -10,5 +10,4 @@
   width: 31.33%;
   padding: 0 10px;
   margin-bottom: 2rem;
-  // height: 100%;
 }

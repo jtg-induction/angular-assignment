@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
+import { DocumentData, QueryDocumentSnapshot, QuerySnapshot } from 'firebase/firestore';
 import { ArticleDetails } from 'src/app/core/interfaces/article-details';
 import { ArticleService } from 'src/app/core/services/article/article.service';
 
@@ -16,11 +16,26 @@ export class ArticleListComponent implements OnInit {
   constructor(private articleService: ArticleService, private getAuth: Auth) {}
 
   get userEmail() {
-    return this.getAuth.currentUser.email;
+    const user = this.getAuth.currentUser;
+    return user ? user.email : null;
   }
 
-  async ngOnInit() {
-    this.articles = await this.articleService.getAllArticles();
+  callBackForArticles(collec: QuerySnapshot<DocumentData>) {
+    const articles: Array<ArticleDetails> = [];
+    collec.forEach((doc) => {
+      const data = doc.data();
+      const article: ArticleDetails = {
+        id: doc.id,
+        author: data['author'],
+        title: data['title'],
+        description: data['description'],
+        createdAt: data['createdAt'],
+        imageURL: data['imageURL'],
+        creator: data['creator'],
+      };
+      articles.push(article);
+    });
+    this.articles = articles;
     this.articles.sort((o1, o2) => {
       const t1 = new Date(o1.createdAt).getTime();
       const t2 = new Date(o2.createdAt).getTime();
@@ -35,6 +50,10 @@ export class ArticleListComponent implements OnInit {
         this.feedArticles.push(article);
       }
     });
+  }
+
+  async ngOnInit() {
+    await this.articleService.getAllArticles(this.callBackForArticles.bind(this));
     // await this.articleService.getUserArticles();
   }
 }

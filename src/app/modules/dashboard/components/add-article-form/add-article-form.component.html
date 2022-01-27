@@ -31,7 +31,7 @@
       <p *ngIf="errorsOnSubmit" class="error">{{ commonError }}</p>
     </mat-dialog-content>
     <div align="end">
-      <button class="mr-10" mat-raised-button [routerLink]="dashboardPath">Cancel</button>
+      <button type="button" class="mr-10" mat-raised-button [routerLink]="dashboardPath">Cancel</button>
       <button class="submit-btn" type="submit" [disabled]="isSubmitBtnDisabled" color="primary" mat-raised-button>
         Publish
       </button>

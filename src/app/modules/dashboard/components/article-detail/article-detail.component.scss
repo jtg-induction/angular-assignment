@@ -1,4 +1,5 @@
 @import '/src/app/theme.scss';
+@import '/src/app/styles/main.scss';
 
 .aligner {
   max-width: 60%;
@@ -6,10 +7,6 @@
 }
 .author {
   font-weight: 500;
-}
-.flex-spread {
-  display: flex;
-  justify-content: space-between;
 }
 .article-image {
   margin: 2rem 0;
