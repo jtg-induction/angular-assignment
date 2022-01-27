@@ -1,9 +1,8 @@
 @import '/src/app/theme.scss';
+@import '/src/app/styles/main.scss';
 .header {
+  @include flexbox(space-between, center);
   padding: 1.5rem 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   background-color: $primary-color;
   color: $white;
   &__title {
@@ -13,6 +12,6 @@
   }
 }
 .btn-wrapper {
-  display: flex;
+  @include flexbox();
   gap: 1rem;
 }

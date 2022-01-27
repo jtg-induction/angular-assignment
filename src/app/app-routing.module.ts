@@ -32,9 +32,25 @@ const routes: Routes = [
   },
   {
     path: `${ProjectRoutes.ARTICLE_DETAIL}/:id`,
+    children: [
+      {
+        path: 'edit',
+        component: AddArticleFormComponent,
+        data: {
+          kind: 'edit',
+        },
+      },
+    ],
+    pathMatch: 'full',
     component: ArticleDetailComponent,
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToAuth },
+  },
+  {
+    path: `${ProjectRoutes.ARTICLE_DETAIL}/:id/edit`,
+    component: AddArticleFormComponent,
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToAuth, kind: 'edit' },
   },
   {
     path: '**',

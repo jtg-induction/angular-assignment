@@ -23,8 +23,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authService
       .logOut()
-      .then((r) => {
-        console.log(r);
+      .then(() => {
         this.route.navigate([ProjectRoutes.ROOT]);
       })
       .catch((e) => console.log('errors' + e));

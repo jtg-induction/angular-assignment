@@ -8,6 +8,7 @@ import { ArticleListComponent } from './components/article-list/article-list.com
 import { TruncatePipe } from 'src/app/core/pipes/truncate/truncate.pipe';
 import { ArticleDetailComponent } from './components/article-detail/article-detail.component';
 import { AddArticleFormComponent } from './components/add-article-form/add-article-form.component';
+import { DeleteArticleComponent } from './components/delete-article/delete-article.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AddArticleFormComponent } from './components/add-article-form/add-artic
     TruncatePipe,
     ArticleDetailComponent,
     AddArticleFormComponent,
+    DeleteArticleComponent,
   ],
   imports: [SharedModule],
 })

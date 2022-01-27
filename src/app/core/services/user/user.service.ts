@@ -11,7 +11,8 @@ export class UserService {
   constructor(private db: Firestore, private getAuth: Auth) {}
 
   get userEmail() {
-    return this.getAuth.currentUser.email;
+    const user = this.getAuth.currentUser;
+    return user ? user.email : null;
   }
 
   storeUser(userData: UserDetails) {
