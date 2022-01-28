@@ -11,11 +11,11 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button [disabled]="article.creator !== userEmail" [routerLink]="routeToEditArticle" mat-menu-item>
+        <button [disabled]="article.creator !== userID" [routerLink]="routeToEditArticle" mat-menu-item>
           <mat-icon>edit</mat-icon>
           <span>Edit</span>
         </button>
-        <button [disabled]="article.creator !== userEmail" (click)="deleteDialog()" mat-menu-item>
+        <button [disabled]="article.creator !== userID" (click)="deleteDialog()" mat-menu-item>
           <mat-icon>delete</mat-icon>
           <span>Delete</span>
         </button>

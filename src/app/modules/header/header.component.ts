@@ -20,12 +20,8 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  logout() {
-    this.authService
-      .logOut()
-      .then(() => {
-        this.route.navigate([ProjectRoutes.ROOT]);
-      })
-      .catch((e) => console.log('errors' + e));
+  async logout() {
+    await this.authService.logOut();
+    this.route.navigate([`${ProjectRoutes.AUTH}/${ProjectRoutes.SIGNIN}`]);
   }
 }

@@ -18,9 +18,9 @@ export class ArticleCardComponent implements OnInit {
 
   constructor(private getAuth: Auth, public dialog: MatDialog) {}
 
-  get userEmail() {
+  get userID() {
     const user = this.getAuth.currentUser;
-    return user ? user.email : null;
+    return user ? user.uid : null;
   }
 
   get articleID() {
@@ -28,8 +28,8 @@ export class ArticleCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.routeToArticleDetail = `/${ProjectRoutes.ARTICLE_DETAIL}/${this.article.id}`;
-    this.routeToEditArticle = this.routeToArticleDetail + '/edit';
+    this.routeToArticleDetail = ProjectRoutes.ARTICLE_DETAIL.replace(':id', this.article.id);
+    this.routeToEditArticle = ProjectRoutes.EDIT_ARTICLE.replace(':id', this.article.id);
   }
 
   deleteDialog() {

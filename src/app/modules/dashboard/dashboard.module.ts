@@ -9,6 +9,7 @@ import { TruncatePipe } from 'src/app/core/pipes/truncate/truncate.pipe';
 import { ArticleDetailComponent } from './components/article-detail/article-detail.component';
 import { AddArticleFormComponent } from './components/add-article-form/add-article-form.component';
 import { DeleteArticleComponent } from './components/delete-article/delete-article.component';
+import { DashboardRouteModule } from './dashboard-route.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,6 @@ import { DeleteArticleComponent } from './components/delete-article/delete-artic
     AddArticleFormComponent,
     DeleteArticleComponent,
   ],
-  imports: [SharedModule],
+  imports: [SharedModule, DashboardRouteModule],
 })
 export class DashboardModule {}

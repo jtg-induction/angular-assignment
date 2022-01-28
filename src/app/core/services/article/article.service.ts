@@ -11,6 +11,7 @@ import {
   getDocs,
   onSnapshot,
   QuerySnapshot,
+  Unsubscribe,
   updateDoc,
 } from 'firebase/firestore';
 import { ArticleDetails } from '../../interfaces/article-details';
@@ -21,9 +22,11 @@ import { ArticleDetails } from '../../interfaces/article-details';
 export class ArticleService {
   constructor(private db: Firestore, private getAuth: Auth) {}
 
-  get userEmail() {
+  unsub: Unsubscribe;
+
+  get userID() {
     const user = this.getAuth.currentUser;
-    return user ? user.email : null;
+    return user ? user.uid : null;
   }
 
   async storeArticle(article: ArticleDetails) {
@@ -31,9 +34,9 @@ export class ArticleService {
     return docRef.id;
   }
 
-  async updateArticle(article: ArticleDetails) {
+  async updateArticle(id: string, article: any) {
     try {
-      const docRef = doc(this.db, 'articles', article.id);
+      const docRef = doc(this.db, 'articles', id);
       await updateDoc(docRef, { ...article });
     } catch (err: any) {
       console.log(err.message);
@@ -71,7 +74,7 @@ export class ArticleService {
 
   async getUserArticles() {
     try {
-      const docRef = doc(this.db, 'users', this.userEmail);
+      const docRef = doc(this.db, 'users', this.userID);
       const response = (await getDoc(docRef)).data();
       return response['articles'];
     } catch (err: any) {
@@ -81,25 +84,6 @@ export class ArticleService {
   }
 
   async getAllArticles(callBack: (collec: QuerySnapshot<DocumentData>) => void) {
-    onSnapshot(collection(this.db, 'articles'), callBack);
-    // const docRef = collection(this.db, 'articles');
-    // const docs = await getDocs(docRef);
-    // const articles: Array<ArticleDetails> = [];
-    // docs.forEach((doc) => {
-    //   const data = doc.data();
-    //   // console.log(doc.id);
-
-    //   const article: ArticleDetails = {
-    //     id: doc.id,
-    //     author: data['author'],
-    //     title: data['title'],
-    //     description: data['description'],
-    //     createdAt: data['createdAt'],
-    //     imageURL: data['imageURL'],
-    //     creator: data['creator'],
-    //   };
-    //   articles.push(article);
-    // });
-    // return articles;
+    this.unsub = onSnapshot(collection(this.db, 'articles'), callBack);
   }
 }

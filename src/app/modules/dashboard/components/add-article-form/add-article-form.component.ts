@@ -18,12 +18,13 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./add-article-form.component.scss'],
 })
 export class AddArticleFormComponent implements OnInit {
+  formTitle: string;
+  submitButton: string;
   errorsOnSubmit: boolean;
   commonError: string;
   isSubmitBtnDisabled: boolean;
-  dashboardPath = `/${ProjectRoutes.SIGNIN}`;
+  dashboardPath = `/${ProjectRoutes.DASHBOARD}`;
   minimumWordsInDescription: number = 5;
-  articleExists: boolean;
   articleID: string;
   form: FormGroup = new FormGroup({
     title: new FormControl('', Validators.required),
@@ -44,9 +45,9 @@ export class AddArticleFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {}
 
-  get userEmail() {
+  get userID() {
     const user = this.getAuth.currentUser;
-    return user ? user.email : null;
+    return user ? user.uid : null;
   }
   get description() {
     return this.form.get('description');
@@ -66,24 +67,25 @@ export class AddArticleFormComponent implements OnInit {
   async ngOnInit() {
     this.errorsOnSubmit = false;
     this.isSubmitBtnDisabled = false;
-    this.articleExists = false;
     this.articleID = '';
+    this.formTitle = 'Add an Article';
+    this.submitButton = 'Publish';
     const data = this.activatedRoute.snapshot.data;
     const queryParamID = this.activatedRoute.snapshot.paramMap.get('id');
     if (queryParamID && data['kind'] === 'edit') {
-      this.articleExists = true;
+      this.formTitle = 'Edit Article';
+      this.submitButton = 'Update';
       await this.setFormFields(queryParamID);
     }
   }
 
   async setFormFields(queryParamID: string) {
     const articleDetails = await this.articleService.getArticle(queryParamID);
-    if (!articleDetails || articleDetails.creator !== this.userEmail) {
-      this.route.navigate([ProjectRoutes.DASHBOARD]);
-    }
+    // if (!articleDetails || articleDetails.creator !== this.userID) {
+    //   this.route.navigate([ProjectRoutes.DASHBOARD]);
+    // }
     this.title.setValue(articleDetails.title);
     this.description.setValue(articleDetails.description);
-    this.imageURL.setValue(articleDetails.imageURL);
     this.articleID = articleDetails.id;
   }
 
@@ -110,27 +112,12 @@ export class AddArticleFormComponent implements OnInit {
     }
     this.errorsOnSubmit = false;
     this.isSubmitBtnDisabled = true;
-
-    const imageURL = this.imageURL.value && !this.imageFile.value ? this.imageURL.value : await this.getImageURL();
-    const userEmail = this.getAuth.currentUser.email;
+    this.imageURL.setValue(await this.getImageURL());
     try {
-      const userData = await this.userService.getUser(userEmail);
-      const article: ArticleDetails = {
-        id: this.articleID,
-        title: this.title.value,
-        description: this.description.value,
-        author: `${userData['fname']} ${userData['lname']}`,
-        creator: userEmail,
-        imageURL: imageURL,
-        createdAt: new Date().toUTCString(),
-      };
-      if (this.articleExists) {
-        await this.articleService.updateArticle(article);
-        console.log('article updated successfully');
+      if (this.articleID) {
+        await this.updateArticle();
       } else {
-        const newArticleID = await this.articleService.storeArticle(article);
-        await this.userService.assignArticleToUser(newArticleID, userEmail);
-        console.log('article added successfully');
+        await this.createArticle();
       }
       this.isSubmitBtnDisabled = false;
       this.route.navigate([ProjectRoutes.DASHBOARD]);
@@ -140,5 +127,31 @@ export class AddArticleFormComponent implements OnInit {
       this.errorsOnSubmit = true;
       console.log(error.message);
     }
+  }
+  async updateArticle() {
+    const article: ArticleDetails = {
+      title: this.title.value,
+      description: this.description.value,
+    };
+    if (this.imageURL.value) article['imageURL'] = this.imageURL.value;
+
+    await this.articleService.updateArticle(this.articleID, article);
+    console.log('article updated successfully');
+  }
+  async createArticle() {
+    const userID = this.getAuth.currentUser.uid;
+    const userData = await this.userService.getUser(userID);
+    const article: ArticleDetails = {
+      title: this.title.value,
+      description: this.description.value,
+      author: `${userData['fname']} ${userData['lname']}`,
+      creator: userID,
+      imageURL: this.imageURL.value,
+      createdAt: new Date().toUTCString(),
+    };
+    const newArticleID = await this.articleService.storeArticle(article);
+    await this.articleService.updateArticle(newArticleID, { id: newArticleID });
+    await this.userService.assignArticleToUser(newArticleID, userID);
+    console.log('article added successfully');
   }
 }

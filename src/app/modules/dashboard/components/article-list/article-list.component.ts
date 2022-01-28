@@ -15,9 +15,9 @@ export class ArticleListComponent implements OnInit {
   feedArticles: Array<ArticleDetails>;
   constructor(private articleService: ArticleService, private getAuth: Auth) {}
 
-  get userEmail() {
+  get userID() {
     const user = this.getAuth.currentUser;
-    return user ? user.email : null;
+    return user ? user.uid : null;
   }
 
   callBackForArticles(collec: QuerySnapshot<DocumentData>) {
@@ -44,7 +44,7 @@ export class ArticleListComponent implements OnInit {
     this.userArticles = [];
     this.feedArticles = [];
     this.articles.forEach((article) => {
-      if (article.creator === this.userEmail) {
+      if (article.creator === this.userID) {
         this.userArticles.push(article);
       } else {
         this.feedArticles.push(article);

@@ -5,21 +5,28 @@ import { doc, setDoc } from 'firebase/firestore';
 import { Database } from '@angular/fire/database';
 import { Firestore } from '@angular/fire/firestore';
 import { UserDetails } from '../../interfaces/user-details';
+import { ArticleService } from '../article/article.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private getAuth: Auth) {}
-  createUser(email: string, password: string) {
-    return createUserWithEmailAndPassword(this.getAuth, email, password);
+  constructor(private getAuth: Auth, private articleService: ArticleService) {}
+  async createUser(email: string, password: string) {
+    const cred = await createUserWithEmailAndPassword(this.getAuth, email, password);
+    return cred.user.uid;
   }
 
-  logIn(email: string, password: string) {
-    return signInWithEmailAndPassword(this.getAuth, email, password);
+  async logIn(email: string, password: string) {
+    await signInWithEmailAndPassword(this.getAuth, email, password);
   }
 
-  logOut() {
-    return signOut(this.getAuth);
+  async logOut() {
+    try {
+      this.articleService.unsub();
+      await signOut(this.getAuth);
+    } catch (err: any) {
+      console.log(err.message);
+    }
   }
 }

@@ -1,8 +1,9 @@
 export enum ProjectRoutes {
-  ROOT = '',
+  AUTH = 'auth',
   SIGNUP = 'signup',
   SIGNIN = 'signin',
-  DASHBOARD = 'dashboard',
+  DASHBOARD = '',
   ADD_ARTICLE = 'add',
-  ARTICLE_DETAIL = 'article',
+  ARTICLE_DETAIL = 'article/:id',
+  EDIT_ARTICLE = 'article/:id/edit',
 }

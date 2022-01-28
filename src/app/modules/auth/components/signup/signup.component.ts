@@ -18,7 +18,7 @@ export class SignupComponent implements OnInit {
 
   errorsOnSubmit: boolean;
   commonError: string;
-  signInPath = `/${ProjectRoutes.SIGNIN}`;
+  signInPath = `/${ProjectRoutes.AUTH}/${ProjectRoutes.SIGNIN}`;
   isSubmitBtnDisabled: boolean;
 
   ngOnInit(): void {
@@ -47,7 +47,7 @@ export class SignupComponent implements OnInit {
   get password() {
     return this.form.get('password');
   }
-  signup() {
+  async signup() {
     if (this.email.errors || this.password.errors || this.fname.errors) {
       this.commonError = 'Please fill valid details';
       this.errorsOnSubmit = true;
@@ -55,25 +55,26 @@ export class SignupComponent implements OnInit {
     }
     this.errorsOnSubmit = false;
     this.isSubmitBtnDisabled = true;
-    this.authService
-      .createUser(this.email.value, this.password.value)
-      .then((response) => {
-        this.isSubmitBtnDisabled = false;
-        const userData: UserDetails = {
-          email: this.email.value,
-          fname: this.fname.value,
-          lname: this.lname.value,
-          password: this.password.value,
-        };
-        this.userService.storeUser(userData);
-        this.route.navigate([ProjectRoutes.DASHBOARD]);
-      })
-      .catch((error) => {
-        this.isSubmitBtnDisabled = false;
-        this.errorsOnSubmit = true;
-        if ((error.message as string).indexOf('email-already-in-use') >= 0) {
-          this.commonError = 'Email already in use.';
-        } else this.commonError = error.message;
-      });
+    try {
+      const newUserID = await this.authService.createUser(this.email.value, this.password.value);
+      const userData: UserDetails = {
+        email: this.email.value,
+        fname: this.fname.value,
+        lname: this.lname.value,
+        password: this.password.value,
+      };
+      await this.userService.storeUser(userData);
+      await this.userService.updateUser({ id: newUserID });
+
+      this.isSubmitBtnDisabled = false;
+      this.route.navigate([ProjectRoutes.DASHBOARD]);
+    } catch (error: any) {
+      this.isSubmitBtnDisabled = false;
+      this.errorsOnSubmit = true;
+
+      if ((error.message as string).indexOf('email-already-in-use') >= 0) {
+        this.commonError = 'Email already in use.';
+      } else this.commonError = error.message;
+    }
   }
 }

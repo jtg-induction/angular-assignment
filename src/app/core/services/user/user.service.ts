@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { Firestore } from '@angular/fire/firestore';
-import { arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { arrayRemove, arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { UserDetails } from '../../interfaces/user-details';
 
 @Injectable({
@@ -10,29 +10,49 @@ import { UserDetails } from '../../interfaces/user-details';
 export class UserService {
   constructor(private db: Firestore, private getAuth: Auth) {}
 
-  get userEmail() {
+  get userID() {
     const user = this.getAuth.currentUser;
-    return user ? user.email : null;
+    return user ? user.uid : null;
   }
 
-  storeUser(userData: UserDetails) {
-    const docRef = doc(this.db, 'users', userData.email);
-    setDoc(docRef, userData).catch((error) => console.log(error.message));
+  async storeUser(userData: UserDetails) {
+    try {
+      const docRef = doc(this.db, 'users', this.userID);
+      await setDoc(docRef, userData);
+    } catch (err: any) {
+      console.log(err.message);
+    }
   }
-  async getUser(email: string) {
+  async updateUser(user: any) {
+    try {
+      const docRef = doc(this.db, 'users', this.userID);
+      await updateDoc(docRef, { ...user });
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  }
+  async getUser(uid: string) {
     try {
       const user: UserDetails = null;
-      const docRef = doc(this.db, 'users', email);
+      const docRef = doc(this.db, 'users', uid);
       return (await getDoc(docRef)).data();
     } catch (err: any) {
       console.log(err.message);
       return null;
     }
   }
-  async assignArticleToUser(articleId: string, email: string) {
+  async assignArticleToUser(articleId: string, uid: string) {
     try {
-      const docRef = doc(this.db, 'users', email);
+      const docRef = doc(this.db, 'users', uid);
       await updateDoc(docRef, { articles: arrayUnion(articleId) });
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  }
+  async removeArticleFromUser(articleId: string) {
+    try {
+      const docRef = doc(this.db, 'users', this.userID);
+      await updateDoc(docRef, { articles: arrayRemove(articleId) });
     } catch (err: any) {
       console.log(err.message);
     }

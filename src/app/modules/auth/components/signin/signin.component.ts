@@ -16,7 +16,7 @@ export class SigninComponent implements OnInit {
   errorsOnSubmit: boolean = false;
   isSubmitBtnDisabled: boolean;
   commonError: string;
-  signUpPath = `/${ProjectRoutes.SIGNUP}`;
+  signUpPath = `/${ProjectRoutes.AUTH}/${ProjectRoutes.SIGNUP}`;
 
   ngOnInit(): void {
     this.errorsOnSubmit = false;
@@ -36,7 +36,7 @@ export class SigninComponent implements OnInit {
   get password() {
     return this.form.get('password');
   }
-  signin() {
+  async signin() {
     if (this.email.errors || this.password.errors) {
       this.commonError = 'Please fill valid details';
       this.errorsOnSubmit = true;
@@ -44,16 +44,14 @@ export class SigninComponent implements OnInit {
     }
     this.errorsOnSubmit = false;
     this.isSubmitBtnDisabled = true;
-    this.authService
-      .logIn(this.email.value as string, this.password.value as string)
-      .then((response) => {
-        this.isSubmitBtnDisabled = false;
-        this.route.navigate([ProjectRoutes.DASHBOARD]);
-      })
-      .catch((error) => {
-        this.isSubmitBtnDisabled = false;
-        this.errorsOnSubmit = true;
-        this.commonError = 'Wrong username or password';
-      });
+    try {
+      await this.authService.logIn(this.email.value as string, this.password.value as string);
+      this.isSubmitBtnDisabled = false;
+      this.route.navigate([ProjectRoutes.DASHBOARD]);
+    } catch (err: any) {
+      this.isSubmitBtnDisabled = false;
+      this.errorsOnSubmit = true;
+      this.commonError = 'Wrong username or password';
+    }
   }
 }
