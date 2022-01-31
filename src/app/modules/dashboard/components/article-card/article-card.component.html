@@ -1,7 +1,7 @@
 <mat-card class="article">
   <div class="article__head">
     <mat-card-title class="m-0">
-      <a [routerLink]="routeToArticleDetail">
+      <a matTooltip="{{ article.title }}" [routerLink]="routeToArticleDetail">
         {{ article.title | truncate: 40:'...' }}
       </a>
       <p class="date m-0">{{ article.createdAt | date }}</p>
