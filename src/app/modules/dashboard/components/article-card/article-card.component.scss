@@ -1,0 +1,49 @@
+@import '/src/app/theme.scss';
+@import '/src/app/styles/main.scss';
+
+.article {
+  height: 90%;
+  @include flexbox();
+  flex-direction: column;
+  &__head {
+    @include flexbox(space-between, flex-start);
+    padding-bottom: 1.5rem;
+    line-height: 3rem;
+    a {
+      text-decoration: none;
+      color: $white;
+    }
+    .date {
+      font-size: 1.2rem;
+    }
+    .mat-card-title {
+      word-wrap: break-word;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+  &__footer {
+    @include flexbox(space-between, center);
+    background-color: $primary-color;
+    padding: 0 1.5rem;
+    text-align: right;
+  }
+}
+.mat-card-image {
+  max-height: 10rem;
+  object-fit: cover;
+}
+.like {
+  cursor: pointer;
+  color: $white;
+  &.liked {
+    color: $green;
+  }
+}
+.content {
+  flex: 1;
+}
+.author {
+  font-weight: 500;
+}

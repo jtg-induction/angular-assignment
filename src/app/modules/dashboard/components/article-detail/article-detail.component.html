@@ -1,0 +1,15 @@
+<div class="aligner">
+  <h1 class="heading">{{ article && article.title }}</h1>
+  <div class="flex-spread">
+    <p>
+      By <span class="author">{{ article && article.author }} </span>
+    </p>
+    <p>{{ article && (article.createdAt | date) }}</p>
+  </div>
+  <p class="description">
+    {{ article && article.description }}
+  </p>
+  <div class="article-image">
+    <img *ngIf="article && article.imageURL" src="{{ article.imageURL }}" alt="article image" />
+  </div>
+</div>

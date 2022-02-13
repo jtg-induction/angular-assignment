@@ -1,0 +1,27 @@
+@import '/src/app/theme.scss';
+@import '/src/app/styles/main.scss';
+
+.articles {
+  @include flexbox();
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+.article {
+  width: 31.33%;
+  padding: 0 10px;
+  margin-bottom: 2rem;
+  @media only screen and (max-width: 720px) {
+    width: 100%;
+    padding: 0;
+  }
+}
+.heading {
+  font-size: 3rem;
+  font-weight: 500;
+  padding-top: 2rem;
+}
+.null-state {
+  font-size: 2.5rem;
+  margin: 0 10px;
+  font-weight: lighter;
+}

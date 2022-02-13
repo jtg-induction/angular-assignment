@@ -1,0 +1,22 @@
+<h2 class="heading">Feed</h2>
+<div *ngIf="feedArticles && feedArticles.length">
+  <div class="articles">
+    <div class="article" *ngFor="let article of feedArticles">
+      <app-article-card [article]="article"></app-article-card>
+    </div>
+  </div>
+</div>
+<div *ngIf="feedArticles && !feedArticles.length">
+  <p class="null-state">- Nothing to show</p>
+</div>
+<h2 class="heading">My articles</h2>
+<div *ngIf="userArticles && userArticles.length">
+  <div class="articles">
+    <div class="article" *ngFor="let article of userArticles">
+      <app-article-card [article]="article"></app-article-card>
+    </div>
+  </div>
+</div>
+<div *ngIf="userArticles && !userArticles.length">
+  <p class="null-state">- Nothing to show</p>
+</div>

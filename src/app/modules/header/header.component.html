@@ -1,0 +1,7 @@
+<div class="header">
+  <p class="header__title">Articles on Earth</p>
+  <div *ngIf="currentUser" class="btn-wrapper">
+    <app-add-article-button></app-add-article-button>
+    <button (click)="logout()" mat-raised-button color="warn">Logout</button>
+  </div>
+</div>

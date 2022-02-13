@@ -1,0 +1,40 @@
+<mat-card class="article-form">
+  <h2 align="center" mat-dialog-title>{{ formTitle }}</h2>
+  <form [formGroup]="form" (ngSubmit)="saveArticle()">
+    <mat-dialog-content class="mat-typography">
+      <mat-form-field color="accent" appearance="fill">
+        <mat-label>Title</mat-label>
+        <input formControlName="title" matInput />
+      </mat-form-field>
+      <mat-form-field color="accent" appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea formControlName="description" matInput></textarea>
+        <mat-error *ngIf="description.touched && description.invalid">
+          <div *ngIf="description.errors['required']">Description is required</div>
+          <div *ngIf="description.errors['minimumWords']">required minimum {{ minimumWordsInDescription }} words</div>
+        </mat-error>
+      </mat-form-field>
+      <div class="choose-image-wrapper">
+        <p class="m-0">Select article image to upload</p>
+        <input
+          (change)="storeImageAsFile($event)"
+          formControlName="imagePath"
+          formC
+          hidden
+          id="image-file"
+          accept="image/*"
+          multiple
+          type="file"
+        />
+        <label class="choose-image" for="image-file">Select image</label>
+      </div>
+      <p *ngIf="errorsOnSubmit" class="error">{{ commonError }}</p>
+    </mat-dialog-content>
+    <div align="end">
+      <button type="button" class="mr-10" mat-raised-button [routerLink]="dashboardPath">Cancel</button>
+      <button class="submit-btn" type="submit" [disabled]="isSubmitBtnDisabled" color="primary" mat-raised-button>
+        {{ submitButton }}
+      </button>
+    </div>
+  </form>
+</mat-card>

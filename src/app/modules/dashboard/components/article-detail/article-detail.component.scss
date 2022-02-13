@@ -1,0 +1,28 @@
+@import '/src/app/theme.scss';
+@import '/src/app/styles/main.scss';
+
+.aligner {
+  max-width: 60%;
+  margin: 2rem auto;
+}
+.author {
+  font-weight: 500;
+}
+.article-image {
+  margin: 2rem 0;
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+.heading {
+  font-size: 5rem;
+  text-transform: uppercase;
+  line-height: 5rem;
+  font-weight: bold;
+}
+.description {
+  margin-top: 2rem;
+  font-size: 2rem;
+  line-height: 2.4rem;
+}

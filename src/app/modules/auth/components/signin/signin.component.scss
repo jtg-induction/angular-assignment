@@ -1,0 +1,27 @@
+@import '/src/app/theme.scss';
+@import '/src/app/styles/main.scss';
+
+:host {
+  @include flexbox(center);
+  margin: 1.5rem 0;
+}
+.mat-form-field {
+  width: 100%;
+  min-width: 30rem;
+}
+mat-card-title,
+mat-card-content {
+  @include flexbox(center);
+}
+.error {
+  padding: 1rem;
+  width: 30rem;
+  color: $white;
+  background-color: $red;
+}
+.btn-wrapper {
+  @include flexbox(space-between, center);
+}
+.text-green {
+  color: $green;
+}

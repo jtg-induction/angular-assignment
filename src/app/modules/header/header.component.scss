@@ -1,0 +1,17 @@
+@import '/src/app/theme.scss';
+@import '/src/app/styles/main.scss';
+.header {
+  @include flexbox(space-between, center);
+  padding: 1.5rem 1rem;
+  background-color: $primary-color;
+  color: $white;
+  &__title {
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 0;
+  }
+}
+.btn-wrapper {
+  @include flexbox();
+  gap: 1rem;
+}

@@ -1,0 +1,44 @@
+<mat-card>
+  <mat-card-title>Sign up</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="signup()">
+      <p>
+        <mat-form-field color="accent">
+          <input type="text" matInput placeholder="First name" formControlName="fname" />
+          <mat-error *ngIf="fname.touched && fname.invalid">
+            <div *ngIf="fname.errors['required']">Name is required</div>
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field color="accent">
+          <input type="text" matInput placeholder="Last name" formControlName="lname" />
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field color="accent">
+          <input type="email" matInput placeholder="Email" formControlName="email" />
+          <mat-error *ngIf="email.touched && email.invalid">
+            <div *ngIf="email.errors['required']">Email is required</div>
+            <div *ngIf="email.errors['email']">Not a valid email</div>
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field color="accent">
+          <input type="password" matInput placeholder="Password" formControlName="password" />
+          <mat-error *ngIf="password.touched && password.invalid">
+            <div *ngIf="password.errors['required']">Password is required</div>
+            <div *ngIf="password.errors['cannotContainSpace']">Password must not contain spaces</div>
+            <div *ngIf="password.errors['mustBeValid']">Password must be minimum 6 characters long</div>
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <p *ngIf="errorsOnSubmit" class="error">{{ commonError }}</p>
+      <div class="btn-wrapper">
+        <button type="submit" [disabled]="isSubmitBtnDisabled" mat-raised-button color="primary">Submit</button>
+      </div>
+    </form>
+  </mat-card-content>
+  <p align="center">Already a user? <a class="text-green" [routerLink]="signInPath">Sign in</a></p>
+</mat-card>

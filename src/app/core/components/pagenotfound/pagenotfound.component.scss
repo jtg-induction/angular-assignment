@@ -1,0 +1,8 @@
+@import '/src/app/theme.scss';
+@import '/src/app/styles/main.scss';
+
+.not-found {
+  @include flexbox(center);
+  margin-top: 10rem;
+  font-size: 5rem;
+}

@@ -1,0 +1,38 @@
+<mat-card class="article">
+  <div class="article__head">
+    <mat-card-title class="m-0">
+      <a matTooltip="{{ article.title }}" [routerLink]="routeToArticleDetail">
+        {{ article.title | truncate: 40:'...' }}
+      </a>
+      <p class="date m-0">{{ article.createdAt | date }}</p>
+    </mat-card-title>
+    <div>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="options">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button [disabled]="article.creator !== userID" [routerLink]="routeToEditArticle" mat-menu-item>
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+        <button [disabled]="article.creator !== userID" (click)="deleteDialog()" mat-menu-item>
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+  <a [routerLink]="routeToArticleDetail">
+    <img *ngIf="article.imageURL" mat-card-image src="{{ article.imageURL }}" alt="article image" />
+    <img *ngIf="!article.imageURL" mat-card-image src="https://i.stack.imgur.com/mwFzF.png" alt="article image" />
+  </a>
+  <mat-card-content class="content">
+    <p>{{ article.description | truncate: 100:'...' }}</p>
+  </mat-card-content>
+  <mat-card-footer class="article__footer">
+    <p class="m-0">
+      By <span class="author">{{ article.author }}</span>
+    </p>
+    <mat-icon class="like" (click)="({})" title="like">thumb_up</mat-icon>
+  </mat-card-footer>
+</mat-card>
